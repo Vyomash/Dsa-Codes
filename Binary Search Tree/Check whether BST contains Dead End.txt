@@ -1,0 +1,37 @@
+/*The Node structure is
+struct Node {
+int data;
+Node * right, * left;
+};*/
+
+/*You are required to complete below method */
+class Solution{
+  public:
+  void func(Node* root,unordered_map<int,bool>& mp,bool& ans){
+      if(root==NULL){
+          return;
+      }
+      mp[root->data]=true; //visited mark kar diya
+      if(root->left==NULL && root->right==NULL){
+          int x1=root->data + 1;
+          int x2=root->data - 1==0 ? root->data : root->data - 1;
+          if(mp.find(x1)!=mp.end() && mp.find(x2)!=mp.end()){
+              ans=true;
+              return;
+          }
+          
+      }
+      func(root->left,mp,ans);
+      func(root->right,mp,ans);
+      //return ans;
+      
+  }
+    bool isDeadEnd(Node *root)
+    {
+        //Your code here
+        bool ans=false;
+        unordered_map<int,bool> mp;
+        func(root,mp,ans);
+        return ans;
+    }
+};
