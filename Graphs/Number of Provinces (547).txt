@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void trav(int src,unordered_map<int,bool>& vis,vector<vector<int>>& isConnected){
+        vis[src]=true;
+        int row=src;
+        int col=isConnected[0].size();
+        for(int nbr=0;nbr<col;nbr++){
+            if(src!=nbr && isConnected[src][nbr]==1){
+                if(!vis[nbr]){
+                    trav(nbr,vis,isConnected);
+                }
+            }
+        }
+        
+    }
+
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        unordered_map<int,bool> vis;
+        int n=isConnected.size();
+        int m=isConnected[0].size();
+        int count=0;
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                trav(i,vis,isConnected);
+                count++;
+            }
+        }
+        return count;
+    }
+};

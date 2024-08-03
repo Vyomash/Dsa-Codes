@@ -1,0 +1,37 @@
+void shortestPathBfs(int src, int dest) {
+		queue<int> q;
+		map<int,bool> visited;
+		map<int,int> parent;
+
+		//initial state
+		q.push(src);
+		visited[src] = true;
+		parent[src] = -1;
+
+		while(!q.empty()) {
+			int frontNode = q.front();
+			q.pop();
+
+			for(auto nbr: adj[frontNode]) {
+				if(!visited[nbr]) {
+					q.push(nbr);
+					parent[nbr] = frontNode;
+					visited[nbr] = true;
+				}
+			}
+		}
+
+		//parent array tyaar hoga 
+		vector<int> ans;
+		while(dest != -1) {
+			ans.push_back(dest);
+			dest = parent[dest];
+		}
+
+		reverse(ans.begin(), ans.end());
+		//printig the shortest path
+		for(auto i: ans) {
+			cout << i <<" ";
+		}
+		
+	}

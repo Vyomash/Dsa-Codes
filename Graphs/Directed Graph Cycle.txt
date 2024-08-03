@@ -1,0 +1,36 @@
+class Solution {
+  public:
+    // Function to detect cycle in a directed graph.
+    bool solve(int src, unordered_map<int,bool>& vis,unordered_map<int,bool>& dfsTrack,vector<int> adj[]){
+        vis[src]=true;
+        dfsTrack[src]=true;
+        for(auto nbr:adj[src]){
+            if(!vis[nbr]){
+                bool ans=solve(nbr,vis,dfsTrack,adj);
+                if(ans==true){
+                    return true;
+                }
+            }
+            if(vis[nbr]==true && dfsTrack[nbr]==true){
+                return true;
+            }
+        }
+        dfsTrack[src]=false;
+        return false;
+    }
+    
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        unordered_map<int,bool> vis;
+        unordered_map<int,bool> dfsTrack;
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+            bool ans=solve(i,vis,dfsTrack,adj);
+            if(ans==true){
+                return true;
+            }
+            }
+        }
+        return false;
+    }
+};

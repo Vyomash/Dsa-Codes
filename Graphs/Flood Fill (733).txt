@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool isSafe(int newX,int newY,vector<vector<int> >& ans,int oldcolor,int newcolor,map<pair<int,int>,bool>& vis){
+        if(newX>=0 && newY>=0 && newX<ans.size() && newY<ans[0].size() && vis[{newX,newY}]==false && ans[newX][newY]==oldcolor){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    void trav(int sr,int sc,vector<vector<int> >& ans,int oldcolor,int newcolor,map<pair<int,int>,bool>& vis){
+        vis[{sr,sc}]=true;
+        ans[sr][sc]=newcolor;
+        int dx[]={-1,0,1,0};
+        int dy[]={0,1,0,-1};
+        for(int k=0;k<4;k++){
+            int newX=sr+dx[k];
+            int newY=sc+dy[k];
+            if(isSafe(newX,newY,ans,oldcolor,newcolor,vis)){
+                trav(newX,newY,ans,oldcolor,newcolor,vis);
+            }
+        }
+    }
+
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        vector<vector<int> > ans=image;
+        int newcolor=color;
+        int oldcolor=image[sr][sc];
+        map<pair<int,int>,bool> vis;
+        trav(sr,sc,ans,oldcolor,newcolor,vis);
+        return ans;
+    }
+};
