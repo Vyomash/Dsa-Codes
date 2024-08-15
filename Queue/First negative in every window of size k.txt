@@ -1,0 +1,37 @@
+
+
+vector<long long> printFirstNegativeInteger(long long int A[],
+                                             long long int N, long long int K) {
+            deque<long long> dq;
+            vector<long long> v;
+            for(long long i=0;i<K;i++){
+                long long element=A[i];
+                if(A[i]<0){
+                    dq.push_back(i);
+                }
+            }
+            for(long long i=K;i<N;i++){
+                if(dq.empty()){
+                    v.push_back(0);
+                }
+                else{
+                    v.push_back(A[dq.front()]);
+                }
+                if((!dq.empty()) && i-dq.front()>=K){
+                    dq.pop_front();
+                }
+                if(A[i]<0){
+                    dq.push_back(i);
+                }
+            }
+            if(dq.empty()){
+                    v.push_back(0);
+            }
+            else{
+                    v.push_back(A[dq.front()]);
+            }
+                
+            return v;
+            
+                                                 
+ }

@@ -1,0 +1,30 @@
+//User function Template for C++
+
+class Solution{
+public:
+    vector<int> rearrangeQueue(queue<int> &q){
+        queue<int> sec;
+        int n=q.size();
+        for(int i=0;i<n/2;i++){
+            int temp=q.front();
+            q.pop();
+            sec.push(temp);
+        }
+        
+        for(int i=0;i<n/2;i++){
+            int temp=sec.front();
+            sec.pop();
+            q.push(temp);
+            temp=q.front();
+            q.pop();
+            q.push(temp);
+        }
+        vector<int> ans;
+        for(int i=0;i<n;i++){
+            int temp=q.front();
+            q.pop();
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};

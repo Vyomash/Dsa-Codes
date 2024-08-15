@@ -1,0 +1,30 @@
+class Solution {
+	public
+		string FirstNonRepeating(string A){
+		     Code here
+		    string str;
+		    queueint q;
+		    int freq[26]={0};
+		    for(int i=0;iA.length();i++){
+		        char ch=A[i];
+		        freq[ch -'a']++;
+		        q.push(ch);
+		        
+		        while(!q.empty()){
+		            char fchar=q.front();
+		            if(freq[fchar-'a']1){
+		                q.pop();
+		            }
+		            else{
+		                str.push_back(fchar);
+		                break;
+		            }
+		        }
+		        if(q.empty()){
+		            str.push_back('#');
+		        }
+		    }
+		    return str;
+		}
+
+};
